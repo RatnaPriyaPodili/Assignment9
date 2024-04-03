@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Information Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover,
+        input[type="reset"]:hover {
+            background-color: #0056b3;
+        }
+
+        .required::after {
+            content: "*";
+            color: red;
+        }
+
+        .required {
+            display: inline-block;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Customer Information Form</h2>
+    <form action="#" method="POST">
+        <label for="name" class="required">Name:</label><br>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="phone" class="required">Contact Phone Number:</label><br>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required><br>
+
+        <label for="days" class="required">Preferred Days of Purchasing (Number):</label><br>
+        <input type="number" id="days" name="days" required><br>
+
+        <label for="category" class="required">Category:</label><br>
+        <select id="category" name="category" onchange="updateItems()" required>
+            <option value="" disabled selected>Select a category</option>
+            <option value="clothing">Clothing</option>
+            <option value="electronics">Electronics</option>
+            <option value="home">Home Goods</option>
+            <option value="grocery">Grocery</option>
+        </select><br>
+
+        <label for="item" class="required">Favorite Item:</label><br>
+        <select id="item" name="item" required>
+            <option value="" disabled selected>Select an item</option>
+        </select><br>
+
+        <label for="suggestions">Suggestions:</label><br>
+        <textarea id="suggestions" name="suggestions"></textarea><br>
+
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+    </form>
+    <p>Note: Fields marked with an asterisk (*) are required.</p>
+
+    <script>
+        function updateItems() {
+            var category = document.getElementById("category").value;
+            var itemDropdown = document.getElementById("item");
+            itemDropdown.innerHTML = "";
+            
+            var items = [];
+            if (category === "clothing") {
+                items = ["select","T-shirt", "Jeans", "Dress", "Jacket"];
+            } else if (category === "electronics") {
+                items = ["select","Smartphone", "Laptop", "Headphones", "Camera"];
+            } else if (category === "home") {
+                items = ["select","Furniture", "Appliances", "Decor", "Kitchenware"];
+            } else if (category === "grocery") {
+                items = ["select","Fruits", "Vegetables", "Dairy", "Snacks"];
+            }
+
+            items.forEach(function(item) {
+                var option = document.createElement("option");
+                option.text = item;
+                option.value = item.toLowerCase().replace(/\s+/g, '-');
+                itemDropdown.add(option);
+            });
+        }
+    </script>
+</body>
+</html>
